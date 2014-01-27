@@ -13,7 +13,7 @@ As of this moment, Gluten requires jQuery for event bindings.
 To initalize the library, pass your breakpoints to `Gluten.config()` like
 the following:
 
-    Gluten.config({
+    Gluten.init({
         small: 400,
         medium: 800,
         foo: 1024
@@ -26,7 +26,7 @@ Once the breakpoints are set, define your events using `Gluten.rules()`. The eve
             selector: "#foo",
             event: "click.foo",
             sizes: "small,medium,foo",
-            callback: function() {
+            handler: function() {
                 alert('bar');
             }
         }
