@@ -11,7 +11,7 @@
         Gluten = root.Gluten = {};
     }
 
-    Gluten.VERSION = '0.0.2';
+    Gluten.VERSION = '0.1.0';
 
     // Alias Array Prototypes
     var slice  = Array.prototype.slice,
@@ -62,7 +62,8 @@
         Gluten.currentSize = window.innerWidth;
         Gluten.currentId = helpers.getSizeId(Gluten.currentSize);
 
-        $("html").addClass(settings.classPrefix+Gluten.currentId);
+        var doc = document.getElementsByTagName('html')[0];
+        doc.classList.add(settings.classPrefix+Gluten.currentId);
 
         debug("> Init");
         debug(". Landing size is "+Gluten.currentId+" ("+Gluten.currentSize+")");
@@ -78,7 +79,9 @@
                 debug("\n! Window resized to "+Gluten.currentId+ " ("+width+")");
 
                 if (settings.classPrefix) {
-                    $("html").removeClass(settings.classPrefix+lastId).addClass(settings.classPrefix+Gluten.currentId);
+
+                  var doc = document.getElementsByTagName('html')[0];
+                  doc.classList.remove(settings.classPrefix+Gluten.currentId);
                 }
 
                 binds.refresh();
@@ -268,11 +271,6 @@
             }
 
             return(thisSize.id);
-        },
-
-        hashHandler: function(el, event) {
-            var ev = $._data(el, 'events');
-            return (ev && ev[event]) ? true : false;
         },
 
         extend: function(obj) {
