@@ -8,7 +8,7 @@
 		Gluten.rules([
 			{
 				selector: "#smallmedium",
-				event:    "click.smallmedium",
+				event:    "click.small-medium",
 				sizes:    "small,medium",
 				handler: function() {
 					alert("Small and medium only");
@@ -26,13 +26,12 @@
 			},
 			{
 				selector: "#all",
-				event:    "click.always",
+				event:    "click.all",
 				handler: function() {
 					alert("Any size");
 				}
 
 			}
-
 		]);
 		
 		$(document).ready(function() { 

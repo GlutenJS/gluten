@@ -119,7 +119,7 @@
         attach: function () {
             var settings = Gluten.settings;
 
-            caches.rules.forEach(function(ruleObj) {  
+            caches.rules.forEach(function(ruleObj) {
                 var allSizes = false;
 
                 if (typeof ruleObj.sizes == "undefined") {
@@ -130,14 +130,16 @@
                     if (typeof ruleObj.selector !== "undefined") {
 
                         // A bind
-                        
                         if (caches.global.indexOf(ruleObj.event) < 0) {
                             debug("+ attaching "+ruleObj.event+" ("+allSizes+")");
-                            var el = document.querySelector(ruleObj.selector);
+
+                            var els = document.querySelectorAll(ruleObj.selector);
                             var event = ruleObj.event.split('.');
 
-                            el.addEventListener(event[0], ruleObj.handler);
-                            //$(ruleObj.selector).on(ruleObj.event, ruleObj.live, ruleObj.handler);
+                            for ( var i = 0; i < els.length; i++ ) {
+
+                              els[i].addEventListener(event[0], ruleObj.handler, false);
+                            }
                         }
 
                         if (!allSizes) { 
@@ -159,18 +161,21 @@
 
             return this;
         },
-        
+
         detach: function () {
             caches.detach.forEach(function(data) {
                 debug("- detaching "+data.event);
-                var el = document.querySelector(data.selector);
+
+                var els = document.querySelectorAll(data.selector);
                 var event = data.event.split('.');
 
-                el.removeEventListener(event[0], data.handler, false);
+                for ( var i = 0; i < els.length; i++ ) {
+                  els[i].removeEventListener(event[0], data.handler, false);
+                }
             });
 
             caches.detach = [];
-            
+
             return this;
         }
     };
