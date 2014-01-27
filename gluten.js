@@ -11,7 +11,7 @@
         Gluten = root.Gluten = {};
     }
 
-    Gluten.VERSION = '0.0.1';
+    Gluten.VERSION = '0.0.2';
 
     // Alias Array Prototypes
     var slice  = Array.prototype.slice,
@@ -36,7 +36,7 @@
     };
 
     var debug = function(s) {
-        if (settings.debug) { console.log(s); }
+        if (settings.debug) console.log(s); 
     };
 
     var init = Gluten.init = function(breaks, cb) {
@@ -133,13 +133,18 @@
                         
                         if (caches.global.indexOf(ruleObj.event) < 0) {
                             debug("+ attaching "+ruleObj.event+" ("+allSizes+")");
-                            $(ruleObj.selector).on(ruleObj.event, ruleObj.live, ruleObj.callback);
+                            var el = document.querySelector(ruleObj.selector);
+                            var event = ruleObj.event.split('.');
+
+                            el.addEventListener(event[0], ruleObj.handler);
+                            //$(ruleObj.selector).on(ruleObj.event, ruleObj.live, ruleObj.handler);
                         }
 
                         if (!allSizes) { 
                            caches.detach.push({
                                     "selector":ruleObj.selector,
-                                    "event":ruleObj.event
+                                    "event":ruleObj.event,
+                                    "handler": ruleObj.handler
                             });
 
                         } else {
@@ -149,7 +154,7 @@
                         // Just a function
                         ruleObj.event();
                     }
-                }		        		
+                }
             });
 
             return this;
@@ -158,7 +163,10 @@
         detach: function () {
             caches.detach.forEach(function(data) {
                 debug("- detaching "+data.event);
-                $(data.selector).off(data.action);
+                var el = document.querySelector(data.selector);
+                var event = data.event.split('.');
+
+                el.removeEventListener(event[0], data.handler, false);
             });
 
             caches.detach = [];
