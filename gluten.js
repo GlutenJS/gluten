@@ -62,8 +62,8 @@
         Gluten.currentSize = window.innerWidth;
         Gluten.currentId = helpers.getSizeId(Gluten.currentSize);
 
-        var doc = document.getElementsByTagName('html')[0];
-        doc.classList.add(settings.classPrefix+Gluten.currentId);
+        var body = document.querySelector('body');
+        body.classList.add(settings.classPrefix+Gluten.currentId);
 
         debug("> Init");
         debug(". Landing size is "+Gluten.currentId+" ("+Gluten.currentSize+")");
@@ -79,9 +79,9 @@
                 debug("\n! Window resized to "+Gluten.currentId+ " ("+width+")");
 
                 if (settings.classPrefix) {
-
-                  var doc = document.getElementsByTagName('html')[0];
-                  doc.classList.remove(settings.classPrefix+Gluten.currentId);
+                  var body = document.querySelector('body');
+                  body.classList.remove(settings.classPrefix+lastId);
+                  body.classList.add(settings.classPrefix+Gluten.currentId);
                 }
 
                 binds.refresh();
