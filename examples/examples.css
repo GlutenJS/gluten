@@ -1,0 +1,160 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1.6rem;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #333;
+  background: #f8f8f8;
+  font-weight: 300;
+  line-height: 2.8rem;
+}
+
+nav ul {
+  list-style: none;
+}
+
+a {
+  color: rgb(2, 167, 196);
+}
+
+a:hover {
+  color: rgb(3, 192, 225);
+}
+
+a:active {
+  color: rgb(2, 147, 172);
+}
+
+p {
+  font-size: 1.6rem;
+}
+
+h1 {
+  font-size: 3.2rem;
+  color: rgb(234, 107, 107);
+  font-weight: 400;
+  border-bottom: thin solid #dadada;
+  padding-bottom: 2rem;
+}
+
+.logo {
+  width: 100%;
+}
+
+header {
+  padding: 1rem 2rem;
+}
+
+.wrapper {
+  margin: 0 2rem;
+}
+
+article {
+  margin-bottom: 6rem;
+}
+
+button {
+  color: #666;
+  background: #a1a1a1;
+  border: none;
+  padding: 1rem 1.5rem;
+  font-size: 1.6rem;
+  border-radius: 2px;
+}
+
+button.all,
+button.change-caption,
+.screen-small button.small,
+.screen-medium button.medium,
+.screen-large button.large {
+  color: #fff;
+  background: rgb(2, 167, 196);
+}
+
+button.all:hover,
+button.change-caption:hover,
+.screen-small button.small:hover,
+.screen-medium button.medium:hover,
+.screen-large button.large:hover {
+  box-shadow: 1px 1px 2px 0px #767676;
+  background: rgb(3, 192, 225);
+}
+
+button.all:active,
+button.change-caption:active,
+.screen-small button.small:active,
+.screen-medium button.medium:active,
+.screen-large button.large:active {
+  box-shadow: 0px 0px 2px 0px #767676;
+  background: rgb(2, 147, 172);
+}
+
+.caption {
+  display: block;
+  margin: 4rem auto;
+  font-size: 2rem;
+  color: rgb(255, 97, 77);
+  font-weight: 400;
+}
+
+.examples div {
+  margin-bottom: 6rem;
+}
+
+footer {
+  border-top: thin solid #ddd;
+  margin: 0 2rem;
+  padding: 1rem 0;
+  color: #777;
+}
+
+footer p {
+  font-size: 1.2rem;
+}
+
+@media (min-width: 340px){
+  .logo {
+    width: 340px;
+  }
+}
+
+@media (min-width: 760px) {
+  header {
+    position: fixed;
+    width: 30%;
+    top: 0;
+    padding-right: 4rem;
+  }
+
+  .logo {
+    width: 100%;
+  }
+
+  .wrapper {
+    margin-top: 3rem;
+    margin-left: 30%;
+    width: 70%;
+  }
+}
+
+@media (min-width: 900px) {
+  header {
+    width: 300px;
+  }
+
+  .wrapper {
+    width: 600px;
+  }
+}
