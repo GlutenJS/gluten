@@ -36,6 +36,9 @@
               <li>
                 <a href="#two-way-bindings">Two-way Bindings</a>
               </li>
+              <li>
+                <a href="#dynamic-bindings">Dynamic Bindings</a>
+              </li>
             </ul>
           </li>
         </ul>
@@ -109,7 +112,7 @@
         <p>After the document is loaded, declare <code>Gluten.refresh()</code> to start the resize listener.</p>
       </article>
       <article id="examples" class="examples">
-        <div class="single-binding">
+        <div id="single-bindings" class="single-binding">
           <h1>Creating Bindings</h1>
           <p>Events can be created in the following manner. Below is a series of buttons who's events will attach and detach when the window is resized.</p>
           <div class="button-group">
@@ -160,7 +163,7 @@
             </pre>
           </div>
         </article>
-        <article class="two-way">
+        <article id="two-way-bindings" class="two-way">
           <h1>Multiple bindings on a single element</h1>
           <p>Multiple binds can also be applied to a single element. Below is an example of binding multiple events to an element.</p>
           <button class="change-caption">Change Caption</button>
@@ -190,7 +193,41 @@
             ]);
           </pre>
         </article>
-      </article>
+        <article id="dynamic-bindings" class="dynamic">
+          <h1>Bindings on dynamic elements</h1>
+          <p>Events can be binded to dynamic elements using the 'live' option. The live option will bubble events up the event chain.</p>
+          <button class="create-button">Create Button</button>
+          <div class="dynamic-container"></div>
+          <span class="caption">No Binding Toggle Clicked</span>
+          <h3>Code:</h3>
+          <pre>
+            Gluten.rules([
+              {
+                selector: '.create-button',
+                event: 'click.create-button',
+                handler: function () {
+                  var newBtn = document.createElement('button');
+                  var parent = document.querySelector('.dynamic-container');
+
+                  newBtn.classList.add('dynamic-button');
+                  newBtn.innerText = 'Click Me!';
+
+                  parent.appendChild(newBtn);
+                }
+              },
+
+              {
+                selector: '.dynamic-button',
+                live: '.dynamic-container',
+                event: 'click.caption-large',
+                handler: function () {
+                  var el = document.querySelector('.dynamic .caption');
+                }
+              }
+            ]);
+          </pre>
+        </article>
+      </div>
       <footer>
         <p>Copyright &copy; 2014 Brian Vaughn &amp; Brad Walker. Gluten.js is provided for use under the MIT License.</p>
       </footer>
@@ -257,13 +294,21 @@
             sizes: 'small,large',
             handler: function () {
               var el = document.querySelector('.two-way .caption');
-              var newBtn = document.createElement('button');
-              var parent = document.querySelector('.two-way');
               el.innerText = 'Small & Large Binding Toggle Clicked';
+
+            }
+          },
+          {
+            selector: '.create-button',
+            event: 'click.create-button',
+            handler: function () {
+              var newBtn = document.createElement('button');
+              var parent = document.querySelector('.dynamic-container');
+              var el = document.querySelector('.dynamic .caption');
+              el.innerText = 'New button added!';
 
               newBtn.classList.add('dynamic-button');
               newBtn.innerText = 'Click Me!';
-
 
               parent.appendChild(newBtn);
             }
@@ -271,10 +316,10 @@
           {
             selector: '.dynamic-button',
             event: 'click.dynamic-bar',
-            live: '.two-way',
+            live: '.dynamic',
             handler: function () {
-              var el = document.querySelector('.two-way .caption');
-              el.innerText = 'Dynamic';
+              var el = document.querySelector('.dynamic .caption');
+              el.innerText = 'Dynamic button clicked!';
             }
           }
         ]);

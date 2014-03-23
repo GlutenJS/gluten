@@ -76,6 +76,8 @@ button {
 
 button.all,
 button.change-caption,
+button.create-button,
+button.dynamic-button,
 .screen-small button.small,
 .screen-medium button.medium,
 .screen-large button.large {
@@ -85,6 +87,8 @@ button.change-caption,
 
 button.all:hover,
 button.change-caption:hover,
+button.create-button:hover,
+button.dynamic-button:hover,
 .screen-small button.small:hover,
 .screen-medium button.medium:hover,
 .screen-large button.large:hover {
@@ -94,6 +98,8 @@ button.change-caption:hover,
 
 button.all:active,
 button.change-caption:active,
+button.create-button:active,
+button.dynamic-button:active,
 .screen-small button.small:active,
 .screen-medium button.medium:active,
 .screen-large button.large:active {
