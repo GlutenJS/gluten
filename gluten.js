@@ -137,11 +137,25 @@
                             debug("+ attaching "+ruleObj.event+" ("+allSizes+")");
 
                             var els = document.querySelectorAll(ruleObj.selector);
-                            var event = ruleObj.event.split('.');
+                            var event = ruleObj.event.split('.')[0];
+
+                            if ( ruleObj.live ) {
+                              var live = document.querySelectorAll(ruleObj.selector);
+
+                              for ( var i = 0; i < live.length; i++ ) {
+                                live[i].addEventListener(event, function (e) {
+
+                                  for (var i = 0; i < els.length; i++ ) {
+                                    e.target(els[i]);
+                                    ruleObj.handler();
+                                  }
+                                }, false);
+                              }
+                            }
+
 
                             for ( var i = 0; i < els.length; i++ ) {
-
-                              els[i].addEventListener(event[0], ruleObj.handler, false);
+                              els[i].addEventListener(event, ruleObj.handler, false);
                             }
                         }
 
