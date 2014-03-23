@@ -62,8 +62,8 @@
         Gluten.currentSize = window.innerWidth;
         Gluten.currentId = helpers.getSizeId(Gluten.currentSize);
 
-        var body = document.querySelector('body');
-        body.classList.add(settings.classPrefix+Gluten.currentId);
+        var doc = document.getElementsByTagName('html')[0];
+        doc.classList.add(settings.classPrefix+Gluten.currentId);
 
         debug("> Init");
         debug(". Landing size is "+Gluten.currentId+" ("+Gluten.currentSize+")");
@@ -79,9 +79,9 @@
                 debug("\n! Window resized to "+Gluten.currentId+ " ("+width+")");
 
                 if (settings.classPrefix) {
-                  var body = document.querySelector('body');
-                  body.classList.remove(settings.classPrefix+lastId);
-                  body.classList.add(settings.classPrefix+Gluten.currentId);
+
+                  var doc = document.getElementsByTagName('html')[0];
+                  doc.classList.remove(settings.classPrefix+Gluten.currentId);
                 }
 
                 binds.refresh();
@@ -140,16 +140,18 @@
                             var event = ruleObj.event.split('.')[0];
 
                             if ( ruleObj.live ) {
-                              var live = document.querySelectorAll(ruleObj.selector);
+                              var live = document.querySelectorAll(ruleObj.live);
 
                               for ( var i = 0; i < live.length; i++ ) {
                                 live[i].addEventListener(event, function (e) {
+                                  var sel = ruleObj.selector;
+                                  var el = e.target;
 
-                                  for (var i = 0; i < els.length; i++ ) {
-                                    e.target(els[i]);
-                                    ruleObj.handler();
+                                  if ( el.className === sel.split('.')[1] || el.id === sel.split('#')[1]) {
+                                      ruleObj.handler();
                                   }
                                 }, false);
+
                               }
                             }
 
