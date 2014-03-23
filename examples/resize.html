@@ -1,58 +1,86 @@
-<html class="foo">
+<html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-        <!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script type="text/javascript" src="../gluten.js"></script>
-	<script>
-		Gluten.init({small:400,bradlet:600});
-		Gluten.rules([
-			{
-				selector: "#smallmedium",
-				event:    "click.small-medium",
-				sizes:    "small,medium",
-				handler: function() {
-					alert("Small and medium only");
-				}
+        <style>
+          html {
+            font-family: "helvetica neue", arial, sans-serif;
+            font-size: 62.5%;
+          }
 
-			},
-			{
-				selector: "#bradlet",
-				event:    "click.fatfingers",
-				sizes:    "bradlet",
-				handler: function() {
-					alert("Bradlet only");
-				}
+          body {
+            font-size: 1rem;
+          }
 
-			},
-			{
-				selector: "#all",
-				event:    "click.all",
-				handler: function() {
-					alert("Any size");
-				}
+          button { 
+            background-color:#f00; color:#fff;
+            border: none;
+            padding: .5rem 1rem;
+            font-size: 2rem;
+            box-shadow: 1px 1px 1px 1px #ededed;
+          }
 
-			}
-		]);
-		
-                //$(document).ready(function() { 
-                document.onload = (function() {
-			Gluten.refresh();
-                });
-		//});
 
-		
-	</script>
-	<style>
-		button { background-color:#f00; color:#fff;}
+          #all, 
+          .screen-small #smallmedium, 
+          .screen-medium #smallmedium, 
+          .screen-bradlet #bradlet {
+                background-color:#090;
+          }
 
-		#all, .screen-small #smallmedium, .screen-medium #smallmedium, .screen-bradlet #bradlet {
-			background-color:#090;
-		}
 	</style>
 </head>
 <body>
+
+    <div class="buttons">
 	<button id="smallmedium">Small or medium</button>
 	<button id="bradlet">Bradlet only</button>
-	<button id="all">Always active</button>
+        <button id="all">Always active</button>
+    </div>
+
+    <script type="text/javascript">
+
+          Gluten.init({ 
+            small:400,
+            bradlet:600,
+            debug: false
+          });
+
+          Gluten.rules([
+                        {
+                                selector: "#smallmedium",
+                                event:    "click.small-medium",
+                                sizes:    "small,medium",
+                                handler: function() {
+                                        alert("Small and medium only");
+                                }
+
+                        },
+                        {
+                                selector: "#bradlet",
+                                event:    "click.fatfingers",
+                                sizes:    "bradlet",
+                                handler: function() {
+                                        alert("Bradlet only");
+                                }
+
+                        },
+                        {
+                                selector: "#all",
+                                event:    "click.all",
+                                handler: function() {
+                                        alert("Any size");
+                                }
+
+                        }
+                ]);
+		
+                $(function() { 
+			Gluten.refresh();
+		});
+
+		
+	</script>
 </body>
 </html>

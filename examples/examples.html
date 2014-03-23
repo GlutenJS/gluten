@@ -1,0 +1,287 @@
+<html lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>GlutenJS Examples</title>
+    <link rel="stylesheet" href="examples.css" type="text/css" charset="utf-8">
+  </head>
+  <body>
+    <header>
+      <div>
+        <img class="logo" src="../gluten-text.png" alt="gluten.js" />
+      </div>
+      <nav class="main-nav">
+        <ul>
+          <li>
+            <a href="http://github.com/bwalker8038/gluten">Github</a>
+          </li>
+          <li>
+            <a href="#about">About gluten.js</a>
+          </li>
+          <li>
+            <a href="#init">Initializing</a>
+          </li>
+          <li>
+            <a href="#settings">Settings</a>
+          </li>
+          <li>
+            <a href="#binds">Binding Event Rules</a>
+          </li>
+          <li>
+            <a href="#examples">Examples</a>
+            <ul>
+              <li>
+                <a href="#single-bindings">Single Bindings</a>
+              </li>
+              <li>
+                <a href="#two-way-bindings">Two-way Bindings</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <div class="wrapper" role="main">
+      <article id="about" class="description">
+        <h1>About gluten.js</h1>
+        <p>Gluten.js is a responsive event binding library that lets you easily toggle bindings on an element within different breakpoints. On resize, Gluten will detach and attach events based on your defined breakpoints. Gluten is a standalone library and does not require any dependencies to work.</p>
+        <p>Gluten.js is hosted on github and is available under the MIT License.</p>
+      </article>
+      <article id="init" class="initalize-gluten">
+        <h1>Initializing</h1>
+        <p>To start, initialize Gluten by calling <code>Gluten.init()</code> and pass it a config object. The config object should contain your breakpoint's name(key) and width(value). The breakpoint name can be set to any value you want. The breakpoint width should be a number and is measured in pixels. For example, Gluten could be initialized in the following manner: </p>
+        <pre>
+          Gluten.init({
+            small: 320,
+            medium: 600,
+            foo: 800
+          });
+        </pre>
+      </article>
+      <article id="settings" class="settings">
+        <h1>Settings</h1>
+        <p>The following options can be set: </p>
+        <ul>
+          <li>
+            <code>Gluten.settings.debug</code> 
+            <p>Boolean - when true, will output debug info into to the console. Defaults to false</p>
+          </li>
+          <li>
+            <code>Gluten.settings.classPrefix</code>
+            <p>String - the classPrefix is a prefix prepended to the current breakpoint name. The breakpoint name with the prefix is added as a class to the <code>body</code> tag. Defaults to "screen-"</p>
+          </li>
+        </ul>
+      </article>
+      <article id="binds" class="Bindings">
+        <h1>Binding Event Rules</h1>
+        <p>Event bindings are set with the <code>Gluten.rules()</code> method. the rules method take an array with each rule as an object. The object needs to contain the following:</p>
+        <ul>
+          <li>
+            <code>selector</code> 
+            <p>String - The DOM element to be selected. required</p>
+          </li>
+          <li>
+            <code>event</code>
+            <p>String - The event that will be binded to the element. Events are namespaced and must be unique. The event must have the event type followed by the name (seperated by a period). required</p>
+          </li>
+          <li>
+            <code>sizes</code>
+            <p>String - A listing of the breakpoints the event will fire on. comma seperated. Optional, when not present, the event will fire at any breakpoint.</p>
+          </li>
+          <li>
+            <code>handler</code>
+            <p>Function - The event handler. required</p>
+          </li>
+        </ul>
+        <p>Below is an example of the rules method: </p>
+        <pre>
+          Gluten.rules([
+            {
+              selector: '#foo',
+              event: 'click.foo',
+              sizes: 'small,medium',
+              handler: function () {
+                alert('bar');
+              }
+            }
+          ]);
+        </pre>
+        <p>After the document is loaded, declare <code>Gluten.refresh()</code> to start the resize listener.</p>
+      </article>
+      <article id="examples" class="examples">
+        <div class="single-binding">
+          <h1>Creating Bindings</h1>
+          <p>Events can be created in the following manner. Below is a series of buttons who's events will attach and detach when the window is resized.</p>
+          <div class="button-group">
+            <button class="small">Small Size Binding</button>
+            <button class="medium">Medium Size Binding</button>
+            <button class="large">Large Size Binding</button>
+            <button class="All">All Sizes Binding</button>
+            <span class="caption">No Button Clicked</span>
+            <h3>Code:</h3>
+            <pre>
+              Gluten.rules([
+                {
+                  selector: '.all',
+                  event: 'click.all-bind',
+                  handler: function () {
+                    var el = document.querySelector('.single-binding .caption');
+                    el.innerText = 'All Binding Clicked';
+                  }
+                },
+                {
+                  selector: '.small',
+                  event: 'click.small-bind',
+                  sizes: 'medium',
+                  handler: function () {
+                    var el = document.querySelector('.single-binding .caption');
+                    el.innerText = 'Small Binding Clicked';
+                  }
+                },
+                {
+                  selector: '.medium',
+                  event: 'click.medium-bind',
+                  sizes: 'medium',
+                  handler: function () {
+                    var el = document.querySelector('.single-binding .caption');
+                    el.innerText = 'Medium Binding Clicked';
+                  }
+                },
+                {
+                  selector: '.large',
+                  event: 'click.large-bind',
+                  sizes: 'large',
+                  handler: function () {
+                    var el = document.querySelector('.single-binding .caption');
+                    el.innerText = 'Large Binding Clicked';
+                  }
+                },
+              ])
+            </pre>
+          </div>
+        </article>
+        <article class="two-way">
+          <h1>Multiple bindings on a single element</h1>
+          <p>Multiple binds can also be applied to a single element. Below is an example of binding multiple events to an element.</p>
+          <button class="change-caption">Change Caption</button>
+          <span class="caption">No Binding Toggle Clicked</span>
+          <h3>Code:</h3>
+          <pre>
+            Gluten.rules([
+              {
+                selector: '.change-caption',
+                event: 'click.caption-small',
+                sizes: 'medium',
+                handler: function () {
+                  var el = document.querySelector('.two-way .caption');
+                  el.innerText = 'Medium Binding Toggle Clicked';
+                }
+              },
+
+              {
+                selector: '.change-caption',
+                event: 'click.caption-large',
+                sizes: 'small,large',
+                handler: function () {
+                  var el = document.querySelector('.two-way .caption');
+                  el.innerText = 'Small & Large Binding Toggle Clicked';
+                }
+              }
+            ]);
+          </pre>
+        </article>
+      </article>
+      <footer>
+        <p>Copyright &copy; 2014 Brian Vaughn &amp; Brad Walker. Gluten.js is provided for use under the MIT License.</p>
+      </footer>
+      <script type="text/javascript" src="../gluten.js"></script>
+      <script type="text/javascript" charset="utf-8">
+        Gluten.init({
+          small: 320,
+          medium: 560,
+          large: 900,
+          xlarge: 1024
+        });
+
+        Gluten.settings.debug = true;
+
+        Gluten.rules([
+          {
+            selector: '.all',
+            event: 'click.all-bind',
+            handler: function () {
+              var el = document.querySelector('.single-binding .caption');
+              el.innerText = 'All Binding Clicked';
+            }
+          },
+          {
+            selector: '.small',
+            event: 'click.small-bind',
+            sizes: 'medium',
+            handler: function () {
+              var el = document.querySelector('.single-binding .caption');
+              el.innerText = 'Small Binding Clicked';
+            }
+          },
+          {
+            selector: '.medium',
+            event: 'click.medium-bind',
+            sizes: 'medium',
+            handler: function () {
+              var el = document.querySelector('.single-binding .caption');
+              el.innerText = 'Medium Binding Clicked';
+            }
+          },
+          {
+            selector: '.large',
+            event: 'click.large-bind',
+            sizes: 'large',
+            handler: function () {
+              var el = document.querySelector('.single-binding .caption');
+              el.innerText = 'Large Binding Clicked';
+            }
+          },
+          {
+            selector: '.change-caption',
+            event: 'click.caption-small',
+            sizes: 'medium',
+            handler: function () {
+              var el = document.querySelector('.two-way .caption');
+              el.innerText = 'Medium Binding Toggle Clicked';
+            }
+          },
+
+          {
+            selector: '.change-caption',
+            event: 'click.caption-large',
+            sizes: 'small,large',
+            handler: function () {
+              var el = document.querySelector('.two-way .caption');
+              var newBtn = document.createElement('button');
+              var parent = document.querySelector('.two-way');
+              el.innerText = 'Small & Large Binding Toggle Clicked';
+
+              newBtn.classList.add('dynamic-button');
+              newBtn.innerText = 'Click Me!';
+
+
+              parent.appendChild(newBtn);
+            }
+          },
+          {
+            selector: '.dynamic-button',
+            event: 'click.dynamic-bar',
+            live: '.two-way',
+            handler: function () {
+              var el = document.querySelector('.two-way .caption');
+              el.innerText = 'Dynamic';
+            }
+          }
+        ]);
+
+        window.onload = function () {
+          Gluten.refresh();
+        };
+      </script>
+  </body>
+</html>
