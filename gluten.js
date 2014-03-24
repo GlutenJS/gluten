@@ -62,7 +62,7 @@
         Gluten.currentSize = window.innerWidth;
         Gluten.currentId = helpers.getSizeId(Gluten.currentSize);
 
-        var doc = document.getElementsByTagName('html')[0];
+        var doc = document.getElementsByTagName('body')[0];
         doc.classList.add(settings.classPrefix+Gluten.currentId);
 
         debug("> Init");
@@ -80,8 +80,9 @@
 
                 if (settings.classPrefix) {
 
-                  var doc = document.getElementsByTagName('html')[0];
-                  doc.classList.remove(settings.classPrefix+Gluten.currentId);
+                  var doc = document.getElementsByTagName('body')[0];
+                  doc.classList.remove(lastId);
+                  doc.classList.add(settings.classPrefix+Gluten.currentId);
                 }
 
                 binds.refresh();
@@ -196,6 +197,33 @@
             caches.detach = [];
 
             return this;
+        },
+
+        rule: function (selector, event, live, sizes, handler ) {
+          var ruleObj = {};
+
+          ruleObj.selector = selector;
+          ruleObj.event = event;
+
+          console.log(live);
+          if ( typeof live === 'object' ) {
+            ruleObj.sizes = live;
+            ruleObj.handler = sizes;
+          } else if ( typeof live === 'function' ) {
+            ruleObj.handler = live;
+          } else {
+            ruleObj.live = live;
+
+            if ( typeof sizes === 'function' ) {
+              ruleObj.handler = sizes;
+            } else {
+              ruleObj.sizes = sizes;
+              ruleObj.handler = handler;
+            }
+          }
+
+          binds.extend([ruleObj]);
+          return ruleObj;
         }
     };
 
@@ -304,6 +332,8 @@
 
     Gluten.rules = binds.extend;
     Gluten.refresh = binds.refresh;
+    Gluten.rule = binds.rule;
+    Gluten.cache = caches;
 
 
 }).call(this);
