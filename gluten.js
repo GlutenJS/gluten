@@ -148,7 +148,7 @@
                                   var sel = ruleObj.selector;
                                   var el = e.target;
 
-                                  if ( el.className === sel.split('.')[1] || el.id === sel.split('#')[1]) {
+                                  if ( el.className === sel.split('.')[1] || el.id === sel.split('#')[1] || el.tagName.toLowerCase() === sel) {
                                       ruleObj.handler();
                                   }
                                 }, false);
