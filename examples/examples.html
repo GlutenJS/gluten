@@ -88,8 +88,12 @@
             <p>String - The event that will be binded to the element. Events are namespaced and must be unique. The event must have the event type followed by the name (seperated by a period). required</p>
           </li>
           <li>
+            <code>live</code>
+            <p>String - Selects an element above the given selector. Optional, but needed if adding an event on a dynamic element (event bubbling).
+          </li>
+          <li>
             <code>sizes</code>
-            <p>String - A listing of the breakpoints the event will fire on. comma seperated. Optional, when not present, the event will fire at any breakpoint.</p>
+            <p>Array - A listing of the breakpoints the event will fire on. Optional, when not present, the event will fire at any breakpoint.</p>
           </li>
           <li>
             <code>handler</code>
@@ -102,12 +106,19 @@
             {
               selector: '#foo',
               event: 'click.foo',
-              sizes: 'small,medium',
+              sizes: ['small' ,medium'],
               handler: function () {
                 alert('bar');
               }
             }
           ]);
+        </pre>
+
+        <p>Binds can also be created using the following method as well:</p>
+        <pre>
+          Gluten.rule('#foo', 'click.foo', ['small', 'medium'], function () {
+            alert('bar');
+          });
         </pre>
         <p>After the document is loaded, declare <code>Gluten.refresh()</code> to start the resize listener.</p>
       </article>
@@ -135,7 +146,7 @@
                 {
                   selector: '.small',
                   event: 'click.small-bind',
-                  sizes: 'medium',
+                  sizes: ['medium'],
                   handler: function () {
                     var el = document.querySelector('.single-binding .caption');
                     el.innerText = 'Small Binding Clicked';
@@ -144,7 +155,7 @@
                 {
                   selector: '.medium',
                   event: 'click.medium-bind',
-                  sizes: 'medium',
+                  sizes: ['medium'],
                   handler: function () {
                     var el = document.querySelector('.single-binding .caption');
                     el.innerText = 'Medium Binding Clicked';
@@ -153,7 +164,7 @@
                 {
                   selector: '.large',
                   event: 'click.large-bind',
-                  sizes: 'large',
+                  sizes: ['large'],
                   handler: function () {
                     var el = document.querySelector('.single-binding .caption');
                     el.innerText = 'Large Binding Clicked';
@@ -174,7 +185,7 @@
               {
                 selector: '.change-caption',
                 event: 'click.caption-small',
-                sizes: 'medium',
+                sizes: ['medium'],
                 handler: function () {
                   var el = document.querySelector('.two-way .caption');
                   el.innerText = 'Medium Binding Toggle Clicked';
@@ -184,7 +195,7 @@
               {
                 selector: '.change-caption',
                 event: 'click.caption-large',
-                sizes: 'small,large',
+                sizes: ['small', 'large'],
                 handler: function () {
                   var el = document.querySelector('.two-way .caption');
                   el.innerText = 'Small & Large Binding Toggle Clicked';
@@ -254,7 +265,7 @@
           {
             selector: '.small',
             event: 'click.small-bind',
-            sizes: 'medium',
+            sizes: ['medium'],
             handler: function () {
               var el = document.querySelector('.single-binding .caption');
               el.innerText = 'Small Binding Clicked';
@@ -263,7 +274,7 @@
           {
             selector: '.medium',
             event: 'click.medium-bind',
-            sizes: 'medium',
+            sizes: ['medium'],
             handler: function () {
               var el = document.querySelector('.single-binding .caption');
               el.innerText = 'Medium Binding Clicked';
@@ -272,7 +283,7 @@
           {
             selector: '.large',
             event: 'click.large-bind',
-            sizes: 'large',
+            sizes: ['large'],
             handler: function () {
               var el = document.querySelector('.single-binding .caption');
               el.innerText = 'Large Binding Clicked';
@@ -281,7 +292,7 @@
           {
             selector: '.change-caption',
             event: 'click.caption-small',
-            sizes: 'medium',
+            sizes: ['medium'],
             handler: function () {
               var el = document.querySelector('.two-way .caption');
               el.innerText = 'Medium Binding Toggle Clicked';
@@ -291,7 +302,7 @@
           {
             selector: '.change-caption',
             event: 'click.caption-large',
-            sizes: 'small,large',
+            sizes: ['small', 'large'],
             handler: function () {
               var el = document.querySelector('.two-way .caption');
               el.innerText = 'Small & Large Binding Toggle Clicked';
