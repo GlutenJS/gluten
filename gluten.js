@@ -81,8 +81,8 @@
                 if (settings.classPrefix) {
 
                   var doc = document.getElementsByTagName('body')[0];
-                  doc.classList.remove(lastId);
-                  doc.classList.add(settings.classPrefix+Gluten.currentId);
+                  doc.classList.remove(settings.classPrefix + lastId);
+                  doc.classList.add(settings.classPrefix + Gluten.currentId);
                 }
 
                 binds.refresh();
@@ -102,7 +102,7 @@
 
     // Binding methods
     var binds = Gluten.binds = {
-        
+
         extend: function (bindRules) {
             caches.rules = helpers.extend(caches.rules, bindRules);
 
