@@ -11,7 +11,7 @@
         Gluten = root.Gluten = {};
     }
 
-    Gluten.VERSION = '0.1.0';
+    Gluten.VERSION = '0.2.0';
 
     // Alias Array Prototypes
     var slice  = Array.prototype.slice,
