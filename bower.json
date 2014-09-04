@@ -1,17 +1,20 @@
 {
   "name": "gluten.js",
   "main": "gluten.js",
-  "version": "0.1.2",
-  "homepage": "https://github.com/bwalker8038/gluten",
+  "version": "0.2.0",
+  "homepage": "https://github.com/glutenjs/gluten",
   "authors": [
-    "brad <brad@bradww.com>"
+    "brad <brad@bradww.com>",
+    "brian <brian@morningtoast.com>"
   ],
   "description": "A responsive event binding library",
   "keywords": [
     "responsive",
     "event",
     "bindings",
-    "rwd"
+    "rwd",
+    "event delegation",
+    "responsive web design"
   ],
   "license": "MIT",
   "ignore": [
